@@ -16,6 +16,12 @@ public class HelloController {
 
     @GetMapping("/")
     @ResponseBody
+    public String rootMessageString() {
+        return "Welcome to the root";
+    }
+
+    @GetMapping("/hello")
+    @ResponseBody
     public String hello() {
         return greetingMessage + " | " + toolsMessage;
     }
