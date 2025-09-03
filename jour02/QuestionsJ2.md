@@ -19,6 +19,16 @@ Pour passer des données du controller vers la vue, il suffit d'utiliser les att
 Une fois dans le controller, on utilise la méthode model.addAttribute("nomDeLaVariable", laValeurDeLaVariable); où laValeurDeLaVariable est la valeur trouvée dans le controller via le Model (en général).
 
 ## Job 04
+**Question : Comment Spring facilite-t-il la gestion des formulaires ?**
 
+Spring permet de facilement récupérer les données du formulaire via les méthodes POST ou GET.
+
+Il va récupérer un objet avec les différents champs en utilisant l'attribut "name" des balises et grâce à @PostMapping qui permet de récupérer l'objet contenant les champs et leurs valeurs ainsi que @RequestParam qui permet de viser un champ particulier, on peut récupérer les valeurs que l'on veut et traiter ensuite les différentes données comme on l'entend.
+
+Cela permet de facilement manipuler les données provenant de la view et grâce à thymeleaf, on peut renvoyer d'autres informations à la view après le traitement des informations
 
 ## Job 05
+**Question : Comment Spring permet-il la validation des données du formulaire ?**
+
+Spring valide les données grâce à @Valid @ModelAttribute, il va utiliser un objet (classe que l'on crée) pour vérifier que les données respectent certaines conditions (comme @NotBlank pour les string et @NotNull pour les nombres par exemple), ces annotations permettent de vérifier les valeurs avant de les appliquer à l'objet, si les conditions ne sont pas respectée, alors .hasError sera déclenché par le binding des données du formulaire et de l'objet, ce qui permet de facilement gérer les erreurs d'entrées utilisateurs sans réécrire la logique toujours utilisées pour les inputs.
+Erreur ou non, il est simple avec .hasError de renvoyer la vue nécessaire.

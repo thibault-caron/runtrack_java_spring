@@ -5,5 +5,8 @@
 </head>
 <body>
 <h1 th:text="${message}">Message par défaut</h1>
+<ul>
+    <li th:each="item : ${items}" th:text="${item}">Élément par défaut</li>
+</ul>
 </body>
 </html>
