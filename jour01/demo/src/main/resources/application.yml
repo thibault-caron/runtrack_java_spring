@@ -10,6 +10,7 @@ spring:
       on-profile: dev
 greeting:
   message: "Hello World from DEV Tib"
+  tools: "Hello Tools vous êtes les meilleurs depuis Dev Tib modif"
 ---
 spring:
   config:
@@ -17,3 +18,4 @@ spring:
       on-profile: prod
 greeting:
   message: "Hello World from PROD Tib"
+  tools: "Hello Tools depuis PROD Tib"
