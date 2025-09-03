@@ -4,9 +4,17 @@
     <title>Vue d'Accueil</title>
 </head>
 <body>
-<h1 th:text="${message}">Message par défaut</h1>
+<h1 th:text="${title}">The Hidden Springbootest Runtrack</h1>
 <ul>
-    <li th:each="item : ${items}" th:text="${item}">Élément par défaut</li>
+    <li th:each="item : ${itemList}" th:text="${item}">Élément par défaut</li>
 </ul>
+<form method="POST" action="/view" th:object="${formData}">
+    <input th:field="*{welcome}" type="text" name="welcome" id="welcome" placeholder="name">
+    <div th:if="${#fields.hasErrors('welcome')}" th:errors="*{welcome}"></div>
+    <input th:field="*{age}"  type="number" name="age" id="age">
+    <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+    <button type="submit">Appuie sur le bouton</button>
+    <h2 th:text="${formMessage}">Message par défaut</h2>
+</form>
 </body>
 </html>
