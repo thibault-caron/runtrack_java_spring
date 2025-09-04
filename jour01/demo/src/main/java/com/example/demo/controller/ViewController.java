@@ -25,8 +25,7 @@ public class ViewController {
     }
 
     @PostMapping("/view")
-    public String handleFormSubmit(@Valid @ModelAttribute("formData") FormData formData,
-                                    BindingResult bindingResult, Model model) {
+    public String handleFormSubmit(@Valid @ModelAttribute("formData") FormData formData, BindingResult bindingResult, Model model) {
             model.addAttribute("title", "Le Runtrack Printanier !");
             List<String> itemList = Arrays.asList("Élément 1", "Élément 2", "Élément 3");
             model.addAttribute("itemList", itemList);
