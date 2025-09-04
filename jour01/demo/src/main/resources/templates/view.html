@@ -9,12 +9,38 @@
     <li th:each="item : ${itemList}" th:text="${item}">Élément par défaut</li>
 </ul>
 <form method="POST" action="/view" th:object="${formData}">
-    <input th:field="*{welcome}" type="text" name="welcome" id="welcome" placeholder="name">
-    <div th:if="${#fields.hasErrors('welcome')}" th:errors="*{welcome}"></div>
-    <input th:field="*{age}"  type="number" name="age" id="age">
+    <input th:field="*{nameString}" type="text" name="nameString" id="nameString" placeholder="Nom">
+    <div th:if="${#fields.hasErrors('nameString')}" th:errors="*{nameString}"></div>
+    <input th:field="*{age}" type="number" name="age" id="age" placeholder="Âge">
     <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
     <button type="submit">Appuie sur le bouton</button>
     <h2 th:text="${formMessage}">Message par défaut</h2>
 </form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Âge</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="person : ${persons}">
+            <td th:text="${person.id}">1</td>
+            <td th:text="${person.name}">Nom par défaut</td>
+            <td th:text="${person.age}">Âge par défaut</td>
+            <td>
+                <form th:action="@{/edit/{id}(id=${person.id})}" method="get" style="display:inline;">
+                    <button type="submit">Modifier</button>
+                </form>
+                <form th:action="@{/delete/{id}(id=${person.id})}" method="get" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette personne ?');">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>

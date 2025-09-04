@@ -12,12 +12,14 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int age;
+    private Integer age;
 
-    // Constructors
+    // No-argument constructor (required by JPA)
     public Person() {
     }
-    public Person(String name, int age) {
+
+    // Constructor with arguments
+    public Person(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
@@ -39,11 +41,11 @@ public class Person {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 }
