@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 import com.example.demo.model.FormData;
 import com.example.demo.model.Person;
-import com.example.demo.model.PersonRepository;
+import com.example.demo.service.PersonService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ViewController {
     
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
-    public ViewController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public ViewController(PersonService personService) {
+        this.personService = personService;
     }
 
     @GetMapping("/view")
@@ -32,7 +32,7 @@ public class ViewController {
         List<String> itemList = Arrays.asList("Élément 1", "Élément 2", "Élément 3");
         model.addAttribute("itemList", itemList);
         model.addAttribute("formData", new FormData());
-        List<Person> persons = personRepository.findAll();
+        List<Person> persons = personService.getAllPersons();
         model.addAttribute("persons", persons);
         return "view";
     }
@@ -47,9 +47,9 @@ public class ViewController {
             return "view";
         }
         Person person = new Person(formData.getNameString(), formData.getAge());
-        personRepository.save(person);
+        personService.savePerson(person);
 
-        List<Person> persons = personRepository.findAll();
+        List<Person> persons = personService.getAllPersons();
         model.addAttribute("persons", persons);
         
         // Traitement des données du formulaire
@@ -60,7 +60,7 @@ public class ViewController {
 
     @GetMapping("/edit/{id}")
     public String editPerson(@PathVariable Long id, Model model) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Person not found: " + id));
+        Person person = personService.getPersonById(id);
         model.addAttribute("formData", new FormData(person.getName(), person.getAge()));
         model.addAttribute("personId", id);
         return "edit";
@@ -72,16 +72,16 @@ public class ViewController {
             model.addAttribute("personId", id);
             return "edit";
         }
-        Person person = personRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Person not found: " + id));
+        Person person = personService.getPersonById(id);
         person.setName(formData.getNameString());
         person.setAge(formData.getAge());
-        personRepository.save(person);
+        personService.savePerson(person);
         return "redirect:/view";
     }
 
     @GetMapping("/delete/{id}")
     public String deletePerson(@PathVariable Long id) {
-        personRepository.deleteById(id);
+        personService.deletePerson(id);
         return "redirect:/view";
     }
 }
